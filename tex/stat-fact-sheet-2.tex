@@ -1,0 +1,376 @@
+%	The MIT License (MIT)
+
+%	Copyright (c) 1997 Eric C. Anderson
+
+%	Permission is hereby granted, free of charge, to any person obtaining a copy
+%	of this software and associated documentation files (the "Software"), to deal
+%	in the Software without restriction, including without limitation the rights
+%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%	copies of the Software, and to permit persons to whom the Software is
+%	furnished to do so, subject to the following conditions:
+
+%	The above copyright notice and this permission notice shall be included in all
+%	copies or substantial portions of the Software.
+
+%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+%	SOFTWARE.
+
+
+
+
+
+
+\documentclass[11pt]{article}
+\newlength{\myheight}
+\setlength{\myheight}{\textheight}
+\addtolength{\myheight}{2in}
+\textheight \myheight
+\textwidth 6in
+
+
+
+%%
+%% These are commands that I have defined
+%%
+\newcommand{\Var}{\ensuremath{\mathrm{Var}}}
+\newcommand{\Cov}{\ensuremath{\mathrm{Cov}}}
+\newcommand{\vecX}{\ensuremath{\mathbf{X}}}
+\newcommand{\vecx}{\ensuremath{\mathbf{x}}}
+\newcommand{\sam}{\ensuremath{\mathcal{X}}} % The Sample Space
+\newcommand{\act}{\ensuremath{\mathcal{A}}} % The Action Space
+\newcommand{\pone}{\ensuremath{\mathbf{p_1}}}
+\newcommand{\ptwo}{\ensuremath{\mathbf{p_2}}}
+\newcommand{\xone}{\ensuremath{\mathbf{x_1}}}
+\newcommand{\xtwo}{\ensuremath{\mathbf{x_2}}}
+\newcommand{\qone}{\ensuremath{\mathbf{q_1}}}
+\newcommand{\qtwo}{\ensuremath{\mathbf{q_2}}}
+\newcommand{\ctransone}{\ensuremath{f(\qone,\pone)}}
+\newcommand{\ctranstwo}{\ensuremath{f(\qtwo,\ptwo)}}
+\newcommand{\cf}{{\em cf.}\xspace }
+\def\eg{{\em e.g.},\xspace }
+\def\ie{{\em i.e.},\xspace }
+\def\etal{{\em et al.}\xspace }
+\def\etc{{\em etc.}\@\xspace}
+\def\support{\mathbf{\mathcal{S}}} % This is the S for "Support"
+\def\like{L} % This is the L for "Likelihood"
+\def\cgeno{p} %This is the probability g for the vector of complete genotype
+\def\btheta{\mathbf{\Theta }} %This is for the vector of all S thetas.
+\def\bthetahat{\mathbf{\hat{\Theta }}}
+\newcommand{\mix}{\ensuremath{m}}
+\newcommand{\opcit}[2]{\textsc{#1} (#2)}
+\newcommand{\clcit}[2]{(\textsc{#1} #2)}
+\newcommand{\sand}{\& }
+
+%%
+%% That concludes the section of commands I have defined
+%%
+
+\begin{document}
+\baselineskip 20pt
+\oddsidemargin 0in
+\evensidemargin 0in
+\topmargin -20pt
+\headsep 0pt
+\headheight 0pt
+\pagestyle{empty}
+%%
+\setlength{\parindent}{-2em}
+\small
+%%%%%%%%%%%%%%%%  THREE CONDITIONS   %%%%%%%%%%
+\indent\underline{The Three Conditions According to David Lahaie, aka Optimum D:}\\
+({\it i}) Righteousness must abound, ({\it ii}) Bliss must be beyond telling, ({\it iii}) Dreaminess
+must ensue.
+
+%%%%%%%%%%%%%%%%    COMPLETENESS, ETC  %%%%%%%%%%
+\indent\underline{Completeness, Rao-Blackwell, Lehmann-Scheff\'{e}, UMVUE's etc.}\\ 
+{\it Def'n
+of Complete}:  Let  $\{f_T(t:\theta), \theta \in \Theta \}$ be a family of dsns for $T(\vecX )$. 
+Then $T$ is complete for this \\
+\hspace*{1.5em}family if $E_\theta [g(T)] = 0$ for all $\theta \in \Theta$ implies
+that
+$P_\theta (g(T) = 0) = 1$ for all  $\theta \in \Theta$. \\
+{\it Exponential Families}: Sufficient statistic of exp.\ fam.\ is complete provided that
+$\{A(\theta{}): \theta \in \Theta \}$ \\
+\hspace*{1.5em}contains some open interval, $A(\theta )$ is the nat'l
+param. (Prf by uniqueness of LaPlace trnsfms.)\\ 
+{\it Basu's Theorem}: If $T$ is complete
+and (min.) sufficient, then $T$ is indep. of every ancillary statistic.\\
+{\it Rao-Blackwell}:  Let $W$ be unbiased for $\tau (\theta)$ and $T$ be sufficient for $\theta$
+and
+$g(T) = E(W|T)$. Then \\
+\hspace*{1.5em}({\it i}) $g(T)$ does not depend on $\theta$; ({\it ii}) $E_\theta
+[g(T)]=\tau (\theta )$; and ({\it iii}) For any function $V(L,\theta)$ convex in \\
+\hspace*{1.5em}$L$, $E[V(g(T),
+\theta)] \leq E[V(W,\theta)]$. Taking $V(L,\theta)=[L-\tau (\theta)]^2$ gives $\Var [g(T)]\leq \Var
+(W)$.\\
+{\it Lehmann-Scheff\'{e}}:  If $T$  is sufficient for $\theta$ and  $E[g(T)] = \tau (\theta)$ then  
+$g(T)$ is UMVUE of $\tau (\theta)$.
+
+%%%%%%%%%%%%     EXPONENTIAL FAMILIES OF HIGHER DIMENSION     %%%%%%%%%%%
+\indent\underline{Exponential Families Higher Dimension}\\ Sufficient statistic of exp.\
+fam.\ of dimension $k$ has a dsn of special exp.\ fam.\ form,\\
+\hspace*{1.5em}\mbox{$f_\mathbf{T} (\mathbf{t};\theta) =
+c^*(\theta)h^*(\mathbf{t})\exp\{\sum_{j=1}^k A_j(\theta) t_j\}$}, where the
+$A(\theta)$ are natural parameters and the \\
+\hspace*{1.5em}$t_j$ are components of the vector suff.\ stat.\\
+%
+{\it Completeness}: $\mathbf{t}$ is complete if there exists an open hyper-rectangle of full
+dimension ($k$ if $A_j(\theta)$ are \\
+\hspace*{1.5em}not linearly related, $k-r$ if there is a reduction of $r$
+dimensions by linear relation of nat'l \\
+\hspace*{1.5em}parameters) on the nat'l parameter space.  Not complete if
+the space is curved!
+
+%%%%%%%%%%%% HYPOTHESIS TESTING    %%%%%%%%%%%%%%%%%%%
+\indent\underline{Hypothesis Testing Vocabulary and Definitions}\\
+{\it Simple Hypothesis}: Determines a single probability dsn for the data. (like $H_0$: $\theta =$
+const.)\\
+{\it Composite Hypoth}: Non-simple. e.g.\ $\theta > 0$ for $N(\theta,1)$ or $\mu = 10$ for
+$N(\mu,\sigma^2)$ with $\sigma^2$ unknown.\\
+{\it Test:} A function $\phi : \mathcal{X}\rightarrow [0,1]$, such that $\phi(\vecx)$ is the prob.\
+of rejecting $H_0$ after observing $\vecX=\vecx$.
+{\it Non-randomized test}: Any test $\phi$ such that, $\forall \vecx , \phi(\vecx) = 0$ or
+$\phi(\vecx) = 1$.\\
+{\it Critical region}: For a non-ranomized test, $C_\phi = \{\vecx : \phi(\vecx) = 1\}$.\\
+{\it Power}: probability of rejecting the null hypothesis.  It is a function $\beta$ of $\theta$:\\
+\hspace*{1.5 em}$\beta (\theta) = P_\theta (\mathrm{reject}\ H_0) = \sum_\vecx
+P_\theta (\vecX=\vecx)\cdot P(\mathrm{reject}\ H_0 | \vecX=\vecx) = \sum_\vecx
+P_\theta(\vecX=\vecx)\phi (\vecx) = E_\theta [\phi(\vecx)]$,\\
+\hspace*{1.5 em}Which for non-randomized tests is simply $P_\theta (\vecX \in C_\phi)$\\
+{\it Type I Error}: the probability of rejecting $H_0$ when $H_0$ is true $= \beta (\theta_0)
+=\alpha_0$.\\
+\mbox{{\it Type II Error}: the probability of {\it not} rejecting $H_0$ when it is false $=
+1-P_{\theta_1} (\mathrm{reject}\ H_0) = 1-\beta(\theta_1) = \alpha_1$.}\\
+{\it Size of a Test}: Largest Type I error $= \sup_{\theta\in\Theta_0}\{\beta(\theta)\}$ where
+$\Theta_0 = \{\theta : H_0$ is true\}.
+
+%%%%%%%%%     NEYMAN-PEARSON LEMMA, MLR, ETC.    %%%%%%%%%%%%%%%%%
+\indent\underline{Neyman-Pearson Lemma, MLR, etc.}\\
+{\it Neyman-Pearson Lemma}: For two simple hypotheses $H_0$: $f=f_0$ and $H_1$: $f=f_1$,
+among all tests\\
+\hspace*{1.5em}of size $\leq \alpha_0$ the test with the smallest Type II error is:
+$\phi(\vecx)=1$ if $f_1(\vecx)>kf_0(\vecx);\ \ \phi(\vecx)=0$ \\
+\hspace*{1.5em}if $f_1(\vecx)<kf_0(\vecx)$ where $k$ is chosen so that $\alpha_0
+= E_{f_0}[\phi(\vecX)]$.\\
+%
+{\it Monotone LR}: A family of dsns $\{f_T(t:\theta): \theta \in \Theta\}$ for a univariate
+statistic $T$ and a single real \\
+\hspace*{1.5em}parameter $\theta$ has MLR if $\theta_1 > \theta_0
+\Longrightarrow \frac{f_T(t:\theta_1)}{f_T(t:\theta_0)}$ is a non-decreasing (non-increasing)
+function.\\
+%
+{\it Exp.\ Fam.}:  If $T$ is the min.\ suff.\ stat.\ fpr a 1--1 parameter exp.\ fam.\ then $T$ has
+MLR.\\
+%
+{\it Nameless Theorem}:  If  $T$ has MLR then $\beta(\theta) = P_\theta(T>k^*)$
+is an increasing function of $\theta$.  Note that \\
+\hspace*{1.5em}this allows you to declare a test of a composite
+null (like $H_0:\theta\leq \theta_0$) UMP.
+
+%%%%%%%%%%%%%%%% GENERALIZED LIKELIHOOD RATIO  %%%%%%%%%%%%%%
+\indent\underline{Generalized Likelihood Ratio Test} For two-sided tests \\
+{\it LRT:} of $H_0:\theta\in\Theta_0$ vs.\ $H_1:\theta\in\Theta_1$ is reject $H_0$ if 
+$\Lambda(\vecx)=\frac{\sup_{\theta\in\Theta_1}
+f_\vecX(\vecx;\theta)}{\sup_{\theta\in\Theta_0} f_\vecX(\vecx;\theta)} > K$\ \ (Note: $\Lambda$
+is fcn.\ of $t$)\\
+%
+{\it Exact LRT:} $\Lambda>K\Rightarrow t\in\{A\}$  If dsn of $t$ is
+strtfwd, use $\sup_{\theta\in\Theta_0}P_\theta(\mathrm{reject} H_0) = \alpha_0$ to find
+$\{A\}$.\\
+% 
+\mbox{{\it Asymptotic:} With $\Theta =$ whole p-space, and $\Lambda(\vecx)
+=\frac{\sup_{\theta\in\Theta} f_\vecX(\vecx;\theta)}{\sup_{\theta\in\Theta_0}
+f_\vecX(\vecx;\theta)}$,  then $2\log\Lambda(\vecx)\stackrel{D}{\longrightarrow}\chi^2_{r-s}$ if
+$H_0$ is true.}
+
+%%%%%%%%%%%%%%%%   USEFUL NORMAL APPROXIMATIONS  %%%%%%%%%%%%%%%%
+\indent\underline{Useful Normal Approximations}\\
+{\it Poisson$(\lambda)$}: $T=\sum_1^n X_i \Longrightarrow
+2\sqrt{n}(\sqrt{T/n} -
+\sqrt{\lambda})\stackrel{D}{\longrightarrow} N(0,1)$ so that $2(\sqrt{T} -
+\sqrt{n\lambda})\stackrel{D}{\longrightarrow} N(0,1)$\\
+%
+{\it Binomial$(p)$}: $T=\sum X_i \Longrightarrow \sqrt{n} ((T/n) - p) \stackrel{D}{\longrightarrow}
+N(0,p(1-p))$ so that $\frac{\sqrt{n}((T/n) - p)}{\sqrt{p(1-p)}}\stackrel{D}{\longrightarrow}
+N(0,1)$\\
+{\it Recall that}: $(n-1)S^2 \sim \sigma^2 \chi^2_{n-1}$.
+
+%%%%%%%%%%%%%%%%  CONFIDENCE INTERVALS   %%%%%%%%%%%%
+\indent\underline{Confidence Intervals}\\
+{\it $1-\alpha$ Conf. Interval:}  Any pair of fcns, $L(\vecX), U(\vecX)$  s.t.\
+$P_\theta(L(\vecX)\leq\theta\leq U(\vecX)) = 1-\alpha$ for all $\theta$.
+%
+{\it Pivotal Qty:}  A function $Q(\vecX,\theta)$ whose dsn does not depend on $\theta$.  (Use
+sufficiency if possible.)\\
+\hspace*{1.5em}\textsl{Location Parameter:} Candidates are $X_i-\theta,\ \bar{X}-\theta,\ \min
+X_i-\theta,\ \sum(X_i-\theta)^2,\ \mathrm{median}(X_i)-\theta$.\\
+%
+\hspace*{1.5em}\textsl{Scale Parameter:} Likewise $X_i/\theta,\ \min X_i/\theta,\
+\bar{X}/\theta$, etc.\ are possibilities.\\
+{\it Inverting Tests:} Can be done, though it's not much fun!!
+\pagebreak
+
+%%%%%%%%%%%%%%%%  DECISION THEORY THINGS   %%%%%%%%
+\indent\underline{Decision Theory}\\
+{\it Setup:} sample space $\sam$, param. space $\Theta$, and action space $\act$ with
+ a loss for every $a \in \act$.\\
+%
+{\it Decision Rules:} functions $d(\vecx)$  which are the connection between \sam{}
+and \act .  i.e.\ $d:\sam\longrightarrow\act$.\\
+%
+{\it Loss Function:} $L(\theta, a)$, the cost of taking action $a$ when $\theta $ is true.\\
+%
+\mbox{{\it Risk Function:}  $R(\theta , d) = E_\theta [L(\theta, d(\vecx))]$, the expected
+value of the loss function for given $d$ if $\theta$ is true.}\\
+%
+{\it DT for Pt. Estimates:} $\act = \Theta$ so $a = d(\vecx)$ is an estimator for $\theta$.\\ 
+\hspace*{1.5em}\textsl{Convex Loss:} If $L(\theta, a)$ is convex then Rao-Blackwell says
+proper fcn of suff.\ stat.\ is MVUE.\\
+%
+\hspace*{1.5em}\textsl{Loss for $\theta > 0$:} We want $L(\theta, 0) = \infty$, so consider
+$(1-\frac{\theta}{a})^2$ (but not convex) or $\frac{a}{\theta} - \log(\frac{a}{\theta}) - 1.$\\
+%
+{\it DT for Hypothesis Testing:} For testing $H_0: \theta \in \Theta_0$ against $H_1:
+\theta \in \Theta_1$ with $\Theta_0,\Theta_1$ disjoint.\\
+%
+\hspace*{1.5em}\textsl{Decision Rules:} $d(\vecx)$ are test functions $\phi(\vecx)$
+(non-randomized, here).\\
+%
+\hspace*{1.5em}\textsl{Action Space:} $\act =\{a_0,a_1\}$ where $a_i$ is the action of
+accepting $H_i$.\\
+%
+\hspace*{1.5em}\textsl{Typical Loss:} $L(\theta, a_i) = 0$ when $\theta\in\Theta_i$, and
+$L(\theta\in\Theta_0,a_1) = c_1$ and $L(\theta\in\Theta_1,a_0) = c_0$.\\
+%
+\hspace*{1.5em}\textsl{Risk:} $R(\theta,d(\vecx)) = 
+E_\theta[L(\theta,\phi(\vecx))] = c_1\beta(\theta)$ when $\theta\in\Theta_0$ and
+$c_0(1-\beta(\theta))$ when $\theta\in \Theta_1$.\\
+%
+{\it DT for Confidence Intervals:} Decision rules are now endpoints, of interval, $c(\vecx)$ and
+$d(\vecx)$.\\
+%
+\hspace*{1.5em}\textsl{Action Space:} $\act =$ set of all  intervals in the param.\
+space $=
+\{[c,d]:c,d$ \& pts. b/t $\in\Theta , c<d\}$
+%
+\hspace*{1.5em}\textsl{Loss:} $L(\theta,a) = L(\theta,[c,d])= k_1I_{[c,d]}(\theta) + k_2|d-c|$ with
+$k_1<0$, $k_2>0$.\\
+%
+\hspace*{1.5em}\textsl{Risk:} $R(\theta,d) = E_\theta[L(\theta,c(\vecx),d(\vecx))] =
+k_1P(c(\vecx)\leq\theta\leq d(\vecx)) + k_2E_\theta[|d(\vecx)-c(\vecx)|]\\
+\hspace*{7.17em}= k_1(1-\alpha) + k_2E_\theta($length of interval).
+
+%%%%%%%%%%%%%%  BAYESIAN INFERENCE   %%%%%%%%%%%%%%%%%
+\indent\underline{Bayesian Inference}\\
+\mbox{$\theta$ is r.v.\ $||$ Jointly $f(\theta,\vecx)= f(\vecx|\theta)\pi(\theta)$ $||$
+Marg.\ pdf of $\vecx = f_\vecx(\vecx) = m(\vecx) =\int_\Theta f(\theta,\vecx)d\theta =
+\int_\Theta f(\vecx|\theta)\pi(\theta)d\theta$}\\
+%
+{\it Posterior dsn of $\theta$:}  $\pi(\theta|\vecx) = \frac{f(\theta,\vecx)}{m(\vecx)} =
+\frac{f(\vecx|\theta)\pi(\theta)}{\int_\Theta f(\vecx|\theta)\pi(\theta)d\theta}$ \hspace{1em}
+Note $\vecx$ is Fixed!
+
+%%%%%%%%%%%%%%%%% CONJUGATE PRIORS  %%%%%%%%%%%%%%%%%%
+\indent\underline{Conjugate Priors $||$ Making them diffuse.} (Note that $t=$ the observed
+sufficient statistic, i.e.\ $\sum x_i$)\\
+%
+\indent \mbox{$X_i\sim\mathcal{P}(\theta)$ and $\pi(\theta)\sim\mathcal{G}(\alpha,\beta)
+\Longrightarrow \pi(\theta|\vecx)\sim \mathcal{G}(t+\alpha,[n+\frac{1}{\beta}]^{-1})$ $||$
+$\pi(\theta)\propto\frac{1}{\theta}$ by $\alpha=0,\beta\rightarrow\infty$ so
+$\pi(\theta|\vecx)\sim\mathcal{G}(t,\frac{1}{n})$}
+%
+\indent $X_i\sim\mathrm{Bin}(n,\theta), \pi(\theta)\sim\mathrm{Beta}(\alpha,\beta)
+\Longrightarrow 
+\pi(\theta|\vecx)\sim\mathrm{Beta}(x+\alpha, n-x+\beta)$\\
+%
+\indent \mbox{$X_i\sim N(\theta,\sigma^2), \pi(\theta)\sim N(\mu,\tau^2) \Longrightarrow
+\pi(\theta|\vecx)\sim N\left(\frac{n\bar{x}\tau^2 + \mu\sigma^2}{n\tau^2+\sigma^2},
+\frac{\sigma^2 \tau^2}{n\tau^2 + \sigma^2}\right)$ $||$ $\pi(\theta)\propto 1$ by
+$\tau^2\rightarrow\infty$ so $\pi(\theta|\vecx)\sim N(\bar{x}, \sigma^2/n)$}\\
+%
+%\indent\mbox{$X_i\sim \mathcal{E}(\frac{1}{\theta}), \pi(\theta)\sim
+\indent\mbox{$X_i\sim\mathcal{E}(\frac{1}{\theta}), \pi(\theta)\sim
+\mathcal{G}(\alpha,\beta)\Longrightarrow \pi(\theta|\vecx)\sim \mathcal{G}(n+\alpha,
+[t+\frac{1}{\beta}]^{-1}$ $||$ $\pi(\theta)\propto\frac{1}{\theta}$ by
+$\alpha=0,\beta\rightarrow\infty$ so
+$\pi(\theta|\vecx)\sim\mathcal{G}(n,\frac{1}{t})$}
+%
+{\it Improper, Diffuse Priors:} Location $\theta$ on $(-\infty,\infty) \Longrightarrow
+\pi(\theta)\propto 1$, Scale
+$\theta$ on $(0,\infty)
+\Longrightarrow \pi(\theta)\propto \frac{1}{\theta}$
+
+%%%%%%%%%%%%%%   BAYESIAN INFERENCE AND DECISION THEORY  %%%%%%%
+\indent\underline{Bayesian Inference and Decision Theory}\\
+{\it Bayes' Risk:} $\mathcal{B}(\pi,d)=\int_\Theta R(\theta,d)\pi(\theta)d\theta =
+\int_\Theta \left(\int_\vecX E_\theta[L(\theta,d(\vecx))] f_\vecX(\vecx|\theta) d\vecx\right)
+\pi(\theta) d\theta$.\\ 
+%
+{\it Bayes Decision Rule:}  that $d$ which minimizes the Bayes Risk $\mathcal{B}(\pi,d)$.\\
+%
+\mbox{{\it Bayes Posterior Loss:} $r(\vecx,a)=\int_\Theta L(\theta,
+a)\pi(\theta|\vecx)d\theta$ (note $a=d(\vecx)$) the expected loss wtd by the posterior
+$\pi(\theta|\vecx)$.}\\
+%
+\mbox{{\it Wonderful Theorem:} The decision rule $d(\vecx)$ which minimizes $r(\vecx, d(\vecx))$
+also minimizes $\mathcal{B}(\pi,d(\vecx))$ and so}\\
+\hspace*{1.5em}\mbox{is the Bayes Decision Rule. (So taking
+$\frac{d}{da} r(\vecx,a)=0$, treating $\vecx$ as fixed, can give the Bayes DR.)}\\
+%
+\mbox{{\it Pt.\ Estim.\ Example:} If $L(\theta,a) = (\theta - a)^2$ then $r(\vecx,a)=\int_\Theta
+(\theta - a)^2
+\pi(\theta|\vecx)d\theta = E(\theta^2|\vecx) -2aE(\theta|\vecx) + a^2$ so that}\\
+\mbox{\hspace*{1.5em}  $\frac{d}{da} r(\vecx,a) = -2E(\theta|\vecx) +2a = 0$ implies
+$a=E(\theta|\vecx)$, i.e.\ the Bayes DR is the mean of the posterior.}\\
+%
+\mbox{{\it BDR for Simple Hyp.\ Test:}  $H_0: \theta=\theta_0$ vs.
+$H_1: \theta=\theta_1$ and let $\pi^*=\pi(\theta_0),\ 1-\pi^*=\pi(\theta_1)$.} \\
+\hspace*{1.5em}  Then
+$r(\vecx,a_0)=c_0\pi(\theta_1|\vecx)= \frac{c_0(1-\pi^*)f(\vecx|\theta_1)}{m(\vecx)}$ and
+$r(\vecx,a_1)=c_1\pi(\theta_0|\vecx)= \frac{c_1\pi^*f(\vecx|\theta_0)}{m(\vecx)}$.\\
+%
+\hspace*{1.5em} BDR says reject $H_0$ if $r(\vecx,a_1)<r(\vecx,a_0)\Longrightarrow$ reject if
+$\frac{r(\vecx,a_1)}{r(\vecx,a_0)}< 1 \Longrightarrow
+\frac{f_(\vecx|\theta_1)}{f(\vecx|\theta_0)} > K = \frac{c_1\pi^*}{c_0(1-\pi^*)}$
+
+%%%%%%%%%%%%%%%%  INVARIANCE  %%%%%%%%%%%%%%%%
+\indent\underline{Invariance}\\
+{\it Groups:} $G=\{g\}$ is a group if it satisfies cond'ns of identity, inverse, and closure under
+composition.\\
+%
+\mbox{{\it Invariant Family:} $\mathcal{F}=\{f_\theta : \theta\in\Theta\}$ is invariant under $G$
+if $\forall g\in G$ there exists $\theta '$ s.t.\ $\vecx\sim f(\vecx)\Longrightarrow g(\vecx)\sim
+f_{\theta '}$.}\\
+\hspace*{1.5em} We may then write $\theta ' = g'(\theta)$ and $G'=\{g'\}$ is a group of
+transformations on $\Theta$.\\
+%
+\mbox{{\it Decision Problem} is invariant if $\forall g\in G$ and $\forall a\in\mathcal{A}$ there
+exists $a^*$ s.t. $L(a,g(\theta)) = L(a^*,g'(\theta))\ \forall \theta\in\Theta$.}\\
+\hspace*{1.5em} Then we have that $a^*=g^*(a)$, and $G^*=\{g^*\}$ is a transformation on
+$\mathcal{A}$.\\
+%
+{\it A Decision Rule}, $d$, is invariant if for every $g\in G$ and every $\vecx\in \mathcal{X}$,
+$d(g(\vecx) = g^*(d(\vecx))$.\\
+%
+\mbox{{\it Invariance in Point Estimation:} Note that in this case $\act = \Theta$ so $g^* = g'$.  An
+estimator $W(\vecx)$ is inv.\ under $G$}\\
+\hspace*{1.5em} if $\mathcal{F}$ is invariant under $G$\ and for every $\vecx\in\sam,\
+\theta\in\Theta,\ g\in G$, it holds that $W(g(\vecx)) = g'(W(\vecx))$.
+%
+{\it Invariance in Hypothesis Testing:}  Now $\act \neq \Theta$ so things are trickier.\\
+\hspace*{1.5em}\textsl{DP is Inv.} if the hypothesis spaces are invariant under $G'$ and actions are
+the same under $G^*$.\\
+\hspace*{1.5em}\textsl{i.e.}\ $\theta\in\Theta_0 \Longrightarrow g'(\theta)\in\Theta_0$ and
+$\theta\in\Theta_1 \Longrightarrow g'(\theta)\in\Theta_1$, and $g^*(a) = a$.   \hspace{1.5em}
+Accordingly\ldots\\
+\hspace*{1.5em}\textsl{A Hypothesis Test} $\phi$ is invariant under $G$ if
+$\phi(g(\vecx))=\phi(\vecx)$ for all $g\in G$.
+
+
+
+\end{document}

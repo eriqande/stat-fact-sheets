@@ -1,0 +1,398 @@
+%	The MIT License (MIT)
+
+%	Copyright (c) 1997 Eric C. Anderson
+
+%	Permission is hereby granted, free of charge, to any person obtaining a copy
+%	of this software and associated documentation files (the "Software"), to deal
+%	in the Software without restriction, including without limitation the rights
+%	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+%	copies of the Software, and to permit persons to whom the Software is
+%	furnished to do so, subject to the following conditions:
+
+%	The above copyright notice and this permission notice shall be included in all
+%	copies or substantial portions of the Software.
+
+%	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+%	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+%	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+%	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+%	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+%	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+%	SOFTWARE.
+
+
+
+\documentclass[11pt]{article}
+
+\usepackage{amssymb}
+\usepackage{xspace}
+
+
+\newlength{\myheight}
+\setlength{\myheight}{\textheight}
+\addtolength{\myheight}{2.4in}
+\textheight \myheight
+\textwidth 6in
+
+
+
+%%
+%% These are commands that I have defined
+%%
+\newcommand{\Var}{\ensuremath{\mathrm{Var}}}
+\newcommand{\Cov}{\ensuremath{\mathrm{Cov}}}
+\newcommand{\vecX}{\ensuremath{\mathbf{X}}}
+\newcommand{\vecx}{\ensuremath{\mathbf{x}}}
+\newcommand{\pone}{\ensuremath{\mathbf{p_1}}}
+\newcommand{\ptwo}{\ensuremath{\mathbf{p_2}}}
+\newcommand{\xone}{\ensuremath{\mathbf{x_1}}}
+\newcommand{\xtwo}{\ensuremath{\mathbf{x_2}}}
+\newcommand{\qone}{\ensuremath{\mathbf{q_1}}}
+\newcommand{\qtwo}{\ensuremath{\mathbf{q_2}}}
+\newcommand{\ctransone}{\ensuremath{f(\qone,\pone)}}
+\newcommand{\ctranstwo}{\ensuremath{f(\qtwo,\ptwo)}}
+\newcommand{\cf}{{\em cf.}\xspace }
+\newcommand{\ExpDist}{\mathcal{E}}
+\newcommand{\Exp}{\Bbb{E}}
+\def\eg{{\em e.g.},\xspace }
+\def\ie{{\em i.e.},\xspace }
+\def\etal{{\em et al.}\xspace }
+\def\etc{{\em etc.}\@\xspace}
+\def\support{\mathbf{\mathcal{S}}} % This is the S for "Support"
+\def\like{L} % This is the L for "Likelihood"
+\def\cgeno{p} %This is the probability g for the vector of complete genotype
+\def\btheta{\mathbf{\Theta }} %This is for the vector of all S thetas.
+\def\bthetahat{\mathbf{\hat{\Theta }}}
+\newcommand{\mix}{\ensuremath{m}}
+\newcommand{\opcit}[2]{\textsc{#1} (#2)}
+\newcommand{\clcit}[2]{(\textsc{#1} #2)}
+\newcommand{\sand}{\& }
+
+%%
+%% That concludes the section of commands I have defined
+%%
+
+\begin{document}
+\baselineskip 20pt
+\oddsidemargin 0in
+\evensidemargin 0in
+\topmargin -28pt
+\setlength{\headsep}{-.2in}
+\headheight 0pt
+\pagestyle{empty}
+%%
+\setlength{\parindent}{-2em}
+\small
+%%%%%%%%%%%%%%%%     EXPECTATION, VARIANCE, ETC  %%%%%%%%%%
+\indent\underline{Expectation, Variance, Covariance, MGF's}\\
+{\it Expectation:} $\Exp[g(X)] = \int_{-\infty}^\infty g(x)f_X(x)dx$\ \ \ or\ \ \ 
+$\sum_{i=0}^\infty g(x)f_X(x)$ \ \ and\\
+\hspace*{1.5em}$\Exp[ag_1(X) + bg_2(X) + c)] = a\Exp[g_1(X)] + b\Exp[g_2(X)]+ c$~~~(\ie
+$\Exp$ is a linear operator) \\
+\hspace*{1.5em}\textsl{Existence:}  $\Exp X$ is said to exist if and only if
+$\Exp|X|<\infty$\\
+%
+{\it Variance:} $\Var(X) = \Exp[(X-\Exp X)^2] = \Exp X^2 - (\Exp X)^2$ \ \ and\\
+\hspace*{1.5em}$\Var(aX + bY + c) =
+a^2\Var(X) + b^2\Var(Y) + 2ab\Cov(X,Y)$\\
+%
+{\it Covariance:}  $\Cov (X,Y) = \Exp[(X-\Exp X)(Y-\Exp Y)] = \Exp(XY) - (\Exp X)(\Exp Y)$  and $= 0 $ if X,Y are
+indep.\\
+\mbox{{\it Cov.\ of sum:} $\Cov (X,Y+Z) = \Cov(X,Y) +\Cov(X,Z)  \ $ and $\   \Cov (X,Y-Z) =
+\Cov(X,Y) -\Cov(X,Z)$}       \\
+\hspace*{1.5em}NOTE:  $\Cov(X,Y) =0$ does not imply $X,Y$ indep. unless $X,Y$ are
+Bivariate Normal\\
+%
+{\it MGF's:} $M_X(t) = \Exp(e^{tX}) =  \int_{-\infty}^\infty e^{tx}f_X(x)dx$  \ \ \ or\ \ \ 
+$\sum_{i=0}^\infty e^{tx}f_X(x)$\\
+\hspace*{1.5em}\textsl{Vector Form:}  with $\mathbf{X} = (X_1,\ldots, X_n),\
+\mathbf{t}=(t_1,\ldots,t_n)\ \ \ M_{\mathbf{X}}(\mathbf{t}) = \Exp(e^{\mathbf{t}\cdot
+\mathbf{X}}) = \Exp\left(\exp\{\sum t_i X_i\}\right)$\\
+%
+\hspace*{1.5em}\textsl{Uniqueness:} Iff $M_X(t) = M_Y(t)<\infty$ for $|t| < \epsilon$, some
+$\epsilon > 0$ then $F_X(x) = F_Y(x)\ \ \forall \ x$.\\
+%
+\hspace*{1.5em}\textsl{Linear Combo:} If $Y=aX+b$ then $M_Y(t) = \Exp(e^{t(aX+b)}) = e^{bt}
+M_X(at)$\\
+%
+\hspace*{1.5em}\textsl{Sums of R.V.'s:} If $X_1,\ldots,X_n$ are indep., and
+$Y=\sum_{i=1}^n X_i$ then $M_Y(t) = \prod_{i=1}^n M_{X_i}(t)$
+
+
+%%%%%%%%%%%%%%%%     TRANSFORMATIONS     %%%%%%%%%%%%
+\indent\underline{Transformations}\\
+{\it Univariate:} If $g$ is one-to-one, and $Y = g(X)$ then $ X = g^{-1}(Y)$ and $f_Y(y) =
+f_X\left(g^{-1}(y)\right) \left|\frac{\partial}{\partial y}g^{-1}(y)\right|$\\
+\hspace*{1.5em}{\it or} use the cdf: $P(Y \leq y) = P(g(X)
+\leq y) = P(X \leq g^{-1}(y))$\\
+\hspace*{1.5em}If $g$ not 1:1 then split into $k$ 1:1 parts, and $f_Y(y) = \sum_{i=1}^k
+f_X\left(g_i^{-1}(y)\right)\left|\frac{\partial}{\partial y}g_i^{-1}(y)\right|$\ \  or use
+the\\
+\hspace*{1.5em}{\footnotesize cdf .  Ex:  $Y = X^2 \Longrightarrow P(Y \leq y) = P(X^2 \leq
+y) = P(-\sqrt{y} < X \leq \sqrt{y}) = F_X(\sqrt{y}) - F_X(-\sqrt{y})$}\\
+%%
+{\it Bivariate:} If $U=g_1(X,Y)$ and $V=g_2(X,Y)$ and we can write $X = h_1(U,V)$ and
+$Y=h_2(U,V)$,\\
+\hspace*{1.5em}then $f_{U,V}(u,v) = f_{X,Y}\left(h_1(U,V), h_2(U,V)\right)\cdot |J|$ where:
+\renewcommand{\arraystretch}{1.7}
+\[
+J = \left| \begin{array}{cc}%
+			\frac{\partial h_1(u,v)}{\partial u}       &      \frac{\partial h_1(u,v)}{\partial v}   \\
+              
+      \frac{\partial h_2(u,v)}{\partial u}       &      \frac{\partial h_2(u,v)}{\partial v}    %
+      \end{array} \right| =
+%
+      \left|\begin{array}{cc}%
+			\frac{\partial x}{\partial u}       &      \frac{\partial x}{\partial v}   \\
+               
+      \frac{\partial y}{\partial u}       &      \frac{\partial y}{\partial v}    %
+      \end{array} \right| =
+%
+\frac{\partial x}{\partial u} \frac{\partial y}{\partial v} -
+\frac{\partial y}{\partial u} \frac{\partial x}{\partial v}
+\]
+
+%%%%%%%%%%%%%%%%     CONDITIONAL PROBABILITY, DENSITY, AND EXPECTATION %%%%%
+\indent\underline{Conditional Probability, Density, Expectation, and Variance}\\
+{\it Events:} $P(A|B) = P(A \mathrm{\ and\ } B)/P(B)$\\
+%
+{\it Discrete Random Variables:} $P(X_1=x_1|X_2 = x_2) =\frac{P(X_1=x_1, X_2 =
+x_2)}{P(X_2 = x_2)}$\\
+%
+{\it Continuous R.V.'s:} $f_{(X_1|X_2 = x_2)}(x_1) =
+\frac{f_{X_1,X_2}(x_1,x_2)}{f_{X_2}(x_2)}$ the ``conditional pdf of $X_1$ given $X_2 =
+x_2$"\\
+%
+{\it Expectation:}  $\Exp(X|Y) = \int_{-\infty}^\infty x f_{X|Y}(x)dx$ is an rv---a
+function of $Y$,  \textbf{AND} $\Exp X = \Exp(\Exp(X|Y))$\\
+%
+{\it Variance:} $\Var(X|Y) = \Exp(X^2|Y)- [\Exp(X|Y)]^2$ \  \textbf{AND} \ $\Var(X) = \Exp[\Var(X|Y)] +
+\Var[\Exp(X|Y)]$\\
+{\it Cov:} \mbox{$\Cov(X,Y|Z) = \Exp(XY|Z) - \Exp(X|Z)\Exp(Y|Z)$ \ \textbf{AND} \ $\Cov(X,Y) =
+\Exp[\Cov(X,Y |Z)] +
+\Cov[\Exp(X|Z),\Exp(Y|Z)]$}
+
+%%%%%%%%%%%%%%%%     INDEPENDENCE   %%%%%%%%%%%%%%%
+\indent \underline{Independence---Four Equivalent Def'ns and Useful Things}\\
+1. $P(X_1\in A_1,X_2\in A_2,\ldots , X_n \in A_n) = P(X_1\in A_1)P(X_2\in A_2)\cdots
+P(X_n \in A_n)$\\
+2. $P(X_1\leq x_1,\ldots , X_n\leq x_n) \equiv F_{X_1,\ldots ,X_n}(x_1,\ldots ,x_n) =
+F_{X_1}(x_1)\cdots F_{X_n}(x_n)$  (i.e.\ let $A_i = (\infty,x_i]$)\\
+3. $f_{X_1,\ldots ,X_n}(x_1,\ldots ,x_n) = f_{X_1}(x_1)\cdots f_{X_n}(x_n)$ \\
+4. $\Exp[g_1(X_1)g_2(X_2)\cdots g_n(X_n)]=\Exp[g_1(X_1)]\Exp[g_2(X_2)]\cdots \Exp[g_n(X_n)]$
+\textbf{FOR ALL} $g_i$ imaginable \\
+FACT: $X,Y$ indep. $\Longrightarrow g_1(X),g_2(Y)$ indep. for all $g_1$ and $g_2$\\
+TO SHOW: $f_{X,Y}(x,y) = f_1(x)f_2(y) \Longrightarrow X,Y$ indep. and $f_X\propto
+f_1, f_Y\propto f_2$  (density factorizes)
+
+%%%%%%%%%%%%%%%%%%%%%  INEQUALITIES    %%%%%%%%%%%%%
+\indent\underline{Inequalities}\\
+\mbox{{\it Holder's:} $|\Exp(XY)|\leq \Exp(|XY|) \leq [\Exp(|X|^p)]^{1/p} [\Exp(|Y|^q)]^{1/q}$ where $p,q >
+0$ and $\frac{1}{p} + \frac{1}{q} = 1$.  Sp. case is:}\\
+\hspace*{1.5em}{\it Cauchy-Schwarz:} $|\Cov(X,Y)| \leq
+[\Var(X)\Var(Y)]^{1/2}$  so that
+$-1\leq \rho \leq 1$.\\
+{\it Chebychev's:} If $g(X)\geq 0\ \forall\ X$ then $P(g(X) \geq  b)\leq \frac{\Exp[g(X)]}{b}$
+so also $P(|X-\Exp X|\geq a) \leq \frac{\Exp|X-\Exp X|}{a}$\\
+\hspace*{1.5em}{\it Most Useful Form:} $P(|X-\Exp X|\geq \epsilon) \leq
+\frac{\Var(X)}{\epsilon^2}$\\ 
+\mbox{{\it Jensen's:} {\scriptsize If} $g$ {\scriptsize is convex}
+$\Exp[g(X)] \geq g(\Exp X)$  {\footnotesize Examples: $\Exp X^2\geq (\Exp X)^2,\ \Exp(1/X) \geq 1/\Exp X,\
+\Exp(-\log X)\geq -\log(\Exp X)$}}
+
+%%%%%%%%%%%%%%%%%%%%%  CONVERGENCE  %%%%%%%%%%%%%%%%%%%%%
+\indent\underline{Convergence}
+{\it In Probability:}  $X_n \stackrel{P}{\longrightarrow} X$ if $P(|X_n - X| > \epsilon)
+\longrightarrow 0$ as $n\longrightarrow\infty$ for any $\epsilon > 0$\\
+%
+{\it WLLN:} Let $Y_1,Y_2,\ldots$ be a sequence of iid r.v.s with $\Exp|Y_i|<\infty $, and
+$\bar{Y}_n = \sum_1^n Y_i$, then $\bar{Y}_n \stackrel{P}{\longrightarrow} \Exp Y_i$\\
+%
+{\it Almost Surely:} $X_n \stackrel{\mathrm{a.s.}}{\longrightarrow} X$ if
+$P(\lim_{n\rightarrow\infty} |X_n - X| >\epsilon) = 0$ for some $\epsilon > 0$\\
+% 
+{\it SLLN:}Let $Y_1,Y_2,\ldots$ be a sequence of iid r.v.s with $\Exp|Y_i|<\infty $, and
+$\bar{Y}_n = \sum_1^n Y_i$, then $\bar{Y}_n \stackrel{\mathrm{a.s.}}{\longrightarrow}
+\Exp Y_i$\\
+%
+{\it Slutzky's Thm:} If $X_n \stackrel{D}{\longrightarrow} X$ and  $Y_n
+\stackrel{P}{\longrightarrow} c$ (a constant), and $g(x,y)$ is a continuous function, then\\
+\hspace*{1.5em}$g(X_n, Y_n) \stackrel{D}{\longrightarrow} g(X,c)$ \ $||$ \ So, $X_n
+\stackrel{D}{\longrightarrow} X \Longrightarrow g(X_n)
+\stackrel{D}{\longrightarrow} g(X)$\ \  and\\
+\hspace*{1.5em}$Y_n \stackrel{P}{\longrightarrow} c \Longrightarrow  g(Y_n)
+\stackrel{D}{\longrightarrow} g(c)$ which implies $g(Y_n)
+\stackrel{P}{\longrightarrow} g(c)$ (because $\stackrel{D}{\longrightarrow}$ ``const." is
+$\stackrel{P}{\longrightarrow}$ ``const.")
+
+
+%%%%%%%%%%%%%%%%%%%%%   CENTRAL LIMIT THEOREM  %%%%%%%%%%%%%
+\indent \underline{Central Limit Theorem}\\
+\enlargethispage*{1000pt}
+Suppose $Y_i$  iid with $\Exp Y = \mu$ and $\Var(Y) = \sigma^2 < \infty$ and define $X_n =
+\sum_{i=1}^n Y_i$ then \\
+%
+$\sqrt{n}(X_n - \mu)\stackrel{D}{\longrightarrow} N(0,\sigma^2)$ or, equivalently,
+$\frac{(X_n - \mu)}{\sigma /\sqrt{n}}\stackrel{D}{\longrightarrow} N(0,1)$  \\
+%
+\newpage
+%%%%%%%%%%%%   DELTA METHOD AND TAYLOR APPROXIMATIONS %%%%%%%
+\indent\underline{Delta Method and Taylor Approximations}\\
+If $g(x)$ is continuous and differentiable at $x=\mu$, and $\sqrt{n}(X_n - \mu)
+\stackrel{D}{\longrightarrow} N(0,\sigma^2)$ then\\
+%
+$\sqrt{n}(g(X_n) - g(\mu))
+\stackrel{D}{\longrightarrow} N(0,\sigma^2(g'(\mu))^2)$  example $g(x) = 1/x \Rightarrow
+\sqrt{n}(\frac{1}{X_n} - \frac{1}{\mu})
+\stackrel{D}{\longrightarrow} N(0,\frac{\sigma^2}{\mu^4})$\\
+%
+{\it Stabilizing Variance}: if $\sqrt{n}(X_n - \theta)
+\stackrel{D}{\longrightarrow} N(0,r(\theta))$ then choose $g(x)$ so $(g'(\theta))^2 =
+1/r(\theta)$\\
+%
+{\it Var Approx}:  Given $X$ with $\Exp X=\mu$\ and $\Var(X)<\infty$ then
+$\Var(g(X))\approx (g'(\mu))^2 \Var(X)$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  ESTIMATORS  %%%%%%%%%%%%%%%%%%
+\indent\underline{Estimators}\\
+{\it Bias:} $b_T(\theta) = \Exp_{\theta}[T(\mathbf{X})] -\theta$  \ \ (note: bias is a function
+of
+$\theta$)\\
+{\it MSE:}  $\mathrm{MSE}_\theta (T(\mathbf{X})) = \Exp_{\theta}[(T(\mathbf{X}) - \theta)^2]
+= \Var_{\theta}[T(\mathbf{X})] + [b_T(\theta)]^2$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% CRAMER-RAO %%%%%%%%%%%%%%%%%%
+\indent \underline{Cram\'{e}r-Rao}\\
+\mbox{{\it Score} is a rv $Y_\theta (\vecX) = \frac{\partial \log f_\theta
+(\vecx)}{\partial\theta}\
+\ 
+%
+\| \ \ \Exp(Y_\theta (\vecX))=0 \ \ 
+%
+\| \ \ \Cov(T(\vecX),Y_\theta (\vecX)) = \frac{\partial \Exp_\theta(T(\vecX))}{\partial\theta}
+=
+\tau '(\theta)$}\\
+%
+{\it Fisher Information}$= I(\theta) = \Var(Y_\theta (\vecX)) = \Exp\bigl(\bigl[\frac{\partial
+Y_\theta (\vecX)}{\partial\theta}\bigr]^2\bigr) = -\Exp\bigl(\frac{\partial^2 \log f_\theta
+(\vecx)}{\partial\theta^2}\bigr)=a(\theta)\tau '(\theta)$\\
+%
+{\it CRLB} $=\frac{[\Cov(T(\vecX),Y_\theta (\vecX))]^2}{\Var(Y_\theta (\vecX))} = \frac{(\tau
+'(\theta))^2}{I(\theta)} =
+\frac{\tau '(\theta)}{a(\theta)}$ which for unbiased estimators of $\theta$ is $
+\frac{1}{I(\theta)} = \frac{1}{a(\theta )}$ \\
+\mbox{$\frac{\partial \log f_\theta
+(\vecx)}{\partial\theta} =a(\theta)(T(\vecX) - \tau(\theta)) \Longrightarrow
+T(\vecX)$ is unbiased MLE for $\tau(\theta)$ with Var$(T(\vecX)) = $ CRLB}\\
+%
+{\it Exp. Fam. pdf:} $f_\theta (x)= c(\theta)h(x)\exp\{A(\theta)t(x)\}$ so $f_\theta
+(\mathbf{x})= [c(\theta)]^n\prod h(x_i)\exp\{A(\theta)\sum_1^nt(x_i)\}$\\
+\hspace{1.5em}{\it With k natural parameters} $A_j(\theta)$: $f_\theta
+(\mathbf{x})= [c(\theta)]^n\prod h(x_i)\exp\{\sum_{j=1}^k
+A_j(\theta)(\sum_{i=1}^nt_j(x_i))\}$
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  Maximum Likelihood Estimators  %%%%
+\indent\underline{Maximum Likelihood Estimators}\\
+{\it Invariance Property:}  If $\alpha(\theta)$ is a 1:1 function of $\theta$ then the MLE
+of $\alpha$ is
+$\widehat{\alpha(\theta)} = \alpha(\hat{\theta})$\\
+\mbox{{\it Asymp.\ Dsn.:} If $\tilde{\theta}$ is a consistent root of the likelihood equation
+then 
+$\sqrt{n}(\tilde{\theta} - \theta_0)\stackrel{D}{\longrightarrow}
+N(0,1/I_1(\theta))$}\\
+where $\theta_0$ is ``true $\theta$'' and $1/I_1(\theta)$ is the
+Fisher Info.\  in a one-sample.  (So, approx.\ $\tilde{\theta} \sim N\left(\theta_0,
+1/I_n(\theta)\right)$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%   SUFFICIENCY    %%%%%%%%%%%%%%%
+\indent\underline{Sufficiency}\\
+{\it Def'n:} $T(\mathbf{X})$ is suff. for $\{f_\theta ; \theta \in \Theta\}$ if the
+dsn (pdf or pmf) of $\mathbf{X}$ given $T(\mathbf{X})$ does not depend on
+$\theta$\\
+%
+{\it Factorization Thm:} $T(\mathbf{X})$  is suff. for $\theta$ iff $L_{\mathbf{x}}(\theta)
+= f_{\mathbf{X}}(\mathbf{x}; \theta) = f_\theta(\mathbf{x})$ factorizes into
+$g(T(\mathbf{x}|\theta))h(\mathbf{x})$\\
+\hspace*{1.5em} but note that $g(T(\mathbf{x}|\theta))$ may look like
+$a(\theta)b(T(\mathbf{x},\theta))$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% MINIMAL SUFFICIENCY  %%%%%%%%%%%
+\indent\underline{Minimal Sufficiency}\\
+{\it Def'n:} $T(\mathbf{X})$ is min. suff. for $\theta$ if for every other suff.
+stat. $T^\prime(\mathbf{X})$, $T(\mathbf{x})$ is a function of $T^\prime(\mathbf{x})$\\
+%
+{\it Thm.\ for Min.\ Suff.:}  $T(\mathbf{X})$ is min. suff. if
+$\frac{f_\theta(\mathbf{x})}{f_\theta(\mathbf{y})}$ does not depend on $\theta$ if and
+only if $T(\mathbf{x})=T(\mathbf{y})$ \\
+\hspace*{1.5em} So, to prove minimal sufficiency of $T(\mathbf{X})$:\\
+\hspace*{3.0em}({\em i}\/) Show that $T(\mathbf{x})=T(\mathbf{y}) \Longrightarrow
+\frac{f_\theta(\mathbf{x})}{f_\theta(\mathbf{y})}$ does not depend on $\theta$ $\forall
+\mathbf{x},\mathbf{y}$, then  \\
+\hspace*{3.0em}({\em ii}\/)  Show that $\frac{f_\theta(\mathbf{x})}{f_\theta(\mathbf{y})}$ does not
+depend on $\theta \Longrightarrow T(\mathbf{x})=T(\mathbf{y}) ~\forall \mathbf{x},\mathbf{y}$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  ANCILLARITY   %%%%%%%%%%%%%%%%%%
+\indent\underline{Ancillarity}\\
+{\it Def'n:} $S(\mathbf{X})$ is ancillary if its distribution does not depend on $\theta$\\
+{\it Thm.\ 1:} If $\theta$ is a location parameter, $X_i - X_j$ is ancillary for $\theta$\\
+{\it Thm.\ 2:} If $\theta$ is a scale parameter, $X_i / X_j$ is ancillary for $\theta$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  SCALE FAMILIES  %%%%%%%%%%%%%%%%%%
+\indent\underline{Scale Families}\\
+If Z has the standard (canonical)  pdf $f(z)$ not depending on $\sigma$ then the pdfs of
+the form\\
+$(1/\sigma)f(z/\sigma)$ comprise the associated scale family, and $\sigma$ is called
+a scale parameter.\\
+\hspace*{1.5em}\textsl{Further:} any $X$ with pdf from the family can be written $X =
+Z\sigma$.  Examples:\\
+\hspace*{2em}\textsl{Exponential:} $f_X(x) = \frac{1}{\theta} e^{-x/\theta}
+\Longrightarrow$
+$\theta$ is a scale parameter  and $X=Z\theta$ where $Z\sim \ExpDist(1)$\\
+\hspace*{2em}\textsl{Gamma:}  $X \sim \mathcal{G}(\alpha,\beta) \Longrightarrow X
+\sim \beta\cdot\mathcal{G}(\alpha,1)$ and also $Y=nX\sim
+n\cdot\mathcal{G}(\alpha,\beta) = \mathcal{G}(\alpha,n\beta)$\\
+%
+\hspace*{2em}\textsl{Normal:}  $X \sim N(0,\sigma^2) \Longrightarrow X \sim \sigma
+\cdot N(0,1)$ note the scale parameter is $\sigma$, not $\sigma^2$\\
+%
+\hspace*{2em}\textsl{$\chi^2$ things:} If $X_i\sim N(0,\theta)$ then $\sum_{i=1}^k X_i^2
+=\sum_{i=i}^k (\sqrt{\theta} Z_i)^2 = \theta\cdot\chi^2_{k} =
+\theta\cdot\mathcal{G}(\frac{k}{2},2) = \mathcal{G}(\frac{k}{2},2\theta)$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%  LOCATION FAMILIES  %%%%%%%%%%%%%%%%%%
+\indent\underline{Location Families}\\
+If Z has the standard (canonical)  pdf $f(z)$ not depending on $\theta$ then the pdfs of
+the form $f(z-\theta)$ comprise the associated location family.\\
+%
+\hspace*{1.5em}\textsl{Further:} any $X$ with pdf from the family can be written $X =
+Z + \theta$.  Examples:\\
+%
+\hspace*{2em}\textsl{Normal:} If $X \sim N(\theta,1)$ then $X \sim \theta + N(0,1)$ i.e.\
+$X= Z + \theta$ where $Z\sim N(0,1)$
+
+%%%%%%%%%%%%%%%%%%%%%%%% MINS AND MAXES OF R.V.S  %%%%%%%%%%%%%%%
+\indent\underline{Mins and Maxes of Random Variables}\\
+\mbox{If $X_i$ are indep.\ and $Z=\min(X_i)$, then look at $P(Z>z) =
+1-F_Z(z)=\prod_{i=1}^n P(X_i>z) = \prod_{i=1}^n (1-F_{X_i}(z))$}\\
+\mbox{\hspace*{1.5em}\textsl{Exponential:}  Let $X_i\sim \ExpDist(\theta_i)$ and
+$Z=\min(X_i)$  then $Z\sim \ExpDist \bigl(1/\sum \frac{1}{\theta_i}\bigr)$}\\
+%
+If $X_i$ are indep. and $Z=\max(X_i)$ then look at $P(Z<z)=F_Z(z) =
+\prod_{i=1}^n F_{X_i}(z)$\\
+%
+\hspace*{1.5em}\textsl{Uniform:} If $X_i \sim U[0,1]$ and $Z=\max(X_i)$ then $F_Z(z) =
+\prod_{i=1}^n F_{X_i}(z) = z^n$  and further if \\$Y=\min(X_i)$ then
+\mbox{$P(Y>y,Z\leq z) = \prod P(y<X_i\leq z) =\prod (F_{X_i}(z) -F_{X_i}(y)) =
+(z-y)^n\ \ 0<y<z<1$}
+{\it Censored Variables:} If $X\sim F_X,\ Y\sim F_Y$ indep. and $Z=\min(X,Y)$ and
+$W=I\{X<Y\}$, then\
+$P(W=1) = P(X<Y) = \int\int f_{X,Y}(x,y)$ over $\{(x,y): -\infty <x<y<\infty\} =
+\int_{-\infty}^\infty \int_x^\infty f_X(x)f_Y(y)dydx$\\
+\mbox{{\footnotesize $P(Z>z, X<Y)$ has $\{(x,y):z<x<y<\infty\} = \int_z^\infty
+(1-F_Y(x))f_X(x)dx$ so
+$f_Z(z,W=1) = (1-F_Y(z))f_X(z)$}}
+
+
+\end{document}
